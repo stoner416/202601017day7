@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>우리반 홈페이지 | 맞춤형 학급 커뮤니티</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 네비게이션 -->
+        <nav class="navbar">
+            <div class="logo">🏫 우리반 홈페이지</div>
+            <div class="nav-links">
+                <a href="#" id="nav-home">홈</a>
+                <a href="#" id="nav-board">준비물 게시판</a>
+                <button id="auth-btn" class="btn-primary">로그인</button>
+            </div>
+        </nav>
+
+        <!-- 메인 컨텐츠 영역 -->
+        <main id="main-content" class="container">
+            <!-- 섹션이 동적으로 로드됩니다 -->
+        </main>
+
+        <!-- 모달: 로그인/회원가입 -->
+        <div id="auth-modal" class="modal">
+            <div class="modal-content glass">
+                <span class="close">&times;</span>
+                <div id="auth-forms">
+                    <div id="login-form">
+                        <h2>환영합니다!</h2>
+                        <input type="email" id="login-email" placeholder="이메일">
+                        <input type="password" id="login-password" placeholder="비밀번호">
+                        <button id="do-login" class="btn-full">로그인</button>
+                        <p>계정이 없으신가요? <a href="#" id="go-signup">회원가입</a></p>
+                    </div>
+                    <div id="signup-form" style="display:none;">
+                        <h2>회원가입</h2>
+                        <div class="role-selector">
+                            <label><input type="radio" name="role" value="student" checked> 학생</label>
+                            <label><input type="radio" name="role" value="teacher"> 교사</label>
+                        </div>
+                        <input type="text" id="signup-name" placeholder="이름">
+                        <input type="email" id="signup-email" placeholder="이메일">
+                        <input type="password" id="signup-password" placeholder="비밀번호">
+                        <button id="do-signup" class="btn-full">가입하기</button>
+                        <p>이미 계정이 있으신가요? <a href="#" id="go-login">로그인</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Firebase 설정 모달 (최초 1회) -->
+        <div id="config-modal" class="modal">
+            <div class="modal-content glass">
+                <h2>Firebase 설정</h2>
+                <p>Firebase Console에서 발급받은 SDK 설정을 입력해주세요.</p>
+                <textarea id="firebase-config-input" placeholder="FirebaseConfig JSON 을 입력하세요..."></textarea>
+                <button id="save-config" class="btn-full">설정 저장</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
