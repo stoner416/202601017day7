@@ -2,8 +2,28 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, collection, addDoc, query, onSnapshot, orderBy, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+// Firebase Configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyCYkqiS_gyhfArVTIV4OPIPAzc8DGn333k",
+    authDomain: "jang-db278.firebaseapp.com",
+    projectId: "jang-db278",
+    storageBucket: "jang-db278.firebasestorage.app",
+    messagingSenderId: "636003735694",
+    appId: "1:636003735694:web:281075a5a4a3ce5c68d1df",
+    measurementId: "G-DTBMH9JVTN"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Environment Check
+if (window.location.protocol === 'file:') {
+    alert("경고: 파이어베이스 인증은 'file://' 프로토콜(파일 직접 열기)에서 정상적으로 작동하지 않을 수 있습니다. 라이브 서버(VS Code Live Server 등)를 통해 'http://localhost'로 접속해 주세요.");
+}
+
 // State
-let app, auth, db;
 let currentUser = null;
 let userRole = 'student';
 
@@ -153,20 +173,6 @@ document.getElementById('do-login').onclick = async () => {
     }
 };
 
-// Firebase Configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyCYkqiS_gyhfArVTIV4OPIPAzc8DGn333k",
-    authDomain: "jang-db278.firebaseapp.com",
-    projectId: "jang-db278",
-    storageBucket: "jang-db278.firebasestorage.app",
-    messagingSenderId: "636003735694",
-    appId: "1:636003735694:web:281075a5a4a3ce5c68d1df",
-    measurementId: "G-DTBMH9JVTN"
-};
-
-// Initialize Firebase
-app = initializeApp(firebaseConfig);
-auth = getAuth(app);
-db = getFirestore(app);
+// Init
 setupAuthListener();
 renderHome();
