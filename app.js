@@ -155,10 +155,12 @@ document.getElementById('do-signup').onclick = async () => {
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         await setDoc(doc(db, "users", res.user.uid), { name, role, email });
-        alert("회원가입 성공!");
+        console.log("Signup success:", res.user.email);
+        alert(`회원가입 성공! (${res.user.email} 계정으로 로그인해주세요)`);
         authModal.style.display = 'none';
     } catch (e) {
-        alert("가입 실패: " + e.message);
+        console.error("Signup error detail:", e);
+        alert("가입 실패: " + e.code + " - " + e.message);
     }
 };
 
@@ -166,10 +168,12 @@ document.getElementById('do-login').onclick = async () => {
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
     try {
-        await signInWithEmailAndPassword(auth, email, password);
+        const res = await signInWithEmailAndPassword(auth, email, password);
+        console.log("Login success:", res.user.email);
         authModal.style.display = 'none';
     } catch (e) {
-        alert("로그인 실패: " + e.message);
+        console.error("Login error detail:", e);
+        alert("로그인 실패 (" + e.code + "): 계정 정보가 틀렸거나 가입되지 않은 이메일입니다.");
     }
 };
 
