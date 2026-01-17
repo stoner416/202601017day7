@@ -10,25 +10,11 @@ let userRole = 'student';
 // DOM Elements
 const authBtn = document.getElementById('auth-btn');
 const authModal = document.getElementById('auth-modal');
-const configModal = document.getElementById('config-modal');
 const mainContent = document.getElementById('main-content');
 const loginForm = document.getElementById('login-form');
 const signupForm = document.getElementById('signup-form');
 
-// Firebase Initialization
-const initFirebase = (config) => {
-    try {
-        app = initializeApp(config);
-        auth = getAuth(app);
-        db = getFirestore(app);
-        setupAuthListener();
-        renderHome();
-    } catch (e) {
-        console.error("Firebase init failed", e);
-        alert("Firebase 설정이 올바르지 않습니다.");
-    }
-};
-
+// Auth Listener
 const setupAuthListener = () => {
     onAuthStateChanged(auth, async (user) => {
         if (user) {
@@ -167,21 +153,20 @@ document.getElementById('do-login').onclick = async () => {
     }
 };
 
-// LocalStorage for Firebase Config
-const savedConfig = localStorage.getItem('fb_config');
-if (savedConfig) {
-    initFirebase(JSON.parse(savedConfig));
-} else {
-    configModal.style.display = 'flex';
-}
-
-document.getElementById('save-config').onclick = () => {
-    const raw = document.getElementById('firebase-config-input').value;
-    try {
-        const config = JSON.parse(raw);
-        localStorage.setItem('fb_config', JSON.stringify(config));
-        location.reload();
-    } catch (e) {
-        alert("올바른 JSON 형식이 아닙니다.");
-    }
+// Firebase Configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyCYkqiS_gyhfArVTIV4OPIPAzc8DGn333k",
+    authDomain: "jang-db278.firebaseapp.com",
+    projectId: "jang-db278",
+    storageBucket: "jang-db278.firebasestorage.app",
+    messagingSenderId: "636003735694",
+    appId: "1:636003735694:web:281075a5a4a3ce5c68d1df",
+    measurementId: "G-DTBMH9JVTN"
 };
+
+// Initialize Firebase
+app = initializeApp(firebaseConfig);
+auth = getAuth(app);
+db = getFirestore(app);
+setupAuthListener();
+renderHome();
